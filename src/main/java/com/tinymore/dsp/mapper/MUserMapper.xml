@@ -7,7 +7,7 @@
     <result column="uAccount" jdbcType="VARCHAR" property="uaccount" />
     <result column="uPassword" jdbcType="VARCHAR" property="upassword" />
     <result column="uCName" jdbcType="VARCHAR" property="ucname" />
-    <result column="uTelephone" jdbcType="INTEGER" property="utelephone" />
+    <result column="uTelephone" jdbcType="VARCHAR" property="utelephone" />
     <result column="uEmail" jdbcType="VARCHAR" property="uemail" />
     <result column="uStatus" jdbcType="INTEGER" property="ustatus" />
     <result column="uDesc" jdbcType="VARCHAR" property="udesc" />
@@ -37,7 +37,7 @@
       uEmail, uStatus, uDesc
       )
     values (#{uid,jdbcType=BIGINT}, #{rid,jdbcType=INTEGER}, #{uaccount,jdbcType=VARCHAR}, 
-      #{upassword,jdbcType=VARCHAR}, #{ucname,jdbcType=VARCHAR}, #{utelephone,jdbcType=INTEGER}, 
+      #{upassword,jdbcType=VARCHAR}, #{ucname,jdbcType=VARCHAR}, #{utelephone,jdbcType=VARCHAR}, 
       #{uemail,jdbcType=VARCHAR}, #{ustatus,jdbcType=INTEGER}, #{udesc,jdbcType=VARCHAR}
       )
   </insert>
@@ -89,7 +89,7 @@
         #{ucname,jdbcType=VARCHAR},
       </if>
       <if test="utelephone != null">
-        #{utelephone,jdbcType=INTEGER},
+        #{utelephone,jdbcType=VARCHAR},
       </if>
       <if test="uemail != null">
         #{uemail,jdbcType=VARCHAR},
@@ -118,7 +118,7 @@
         uCName = #{ucname,jdbcType=VARCHAR},
       </if>
       <if test="utelephone != null">
-        uTelephone = #{utelephone,jdbcType=INTEGER},
+        uTelephone = #{utelephone,jdbcType=VARCHAR},
       </if>
       <if test="uemail != null">
         uEmail = #{uemail,jdbcType=VARCHAR},
@@ -138,7 +138,7 @@
       uAccount = #{uaccount,jdbcType=VARCHAR},
       uPassword = #{upassword,jdbcType=VARCHAR},
       uCName = #{ucname,jdbcType=VARCHAR},
-      uTelephone = #{utelephone,jdbcType=INTEGER},
+      uTelephone = #{utelephone,jdbcType=VARCHAR},
       uEmail = #{uemail,jdbcType=VARCHAR},
       uStatus = #{ustatus,jdbcType=INTEGER},
       uDesc = #{udesc,jdbcType=VARCHAR}

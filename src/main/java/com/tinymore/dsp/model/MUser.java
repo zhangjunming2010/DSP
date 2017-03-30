@@ -11,7 +11,7 @@ public class MUser {
 
     private String ucname;
 
-    private Integer utelephone;
+    private String utelephone;
 
     private String uemail;
 
@@ -59,12 +59,12 @@ public class MUser {
         this.ucname = ucname == null ? null : ucname.trim();
     }
 
-    public Integer getUtelephone() {
+    public String getUtelephone() {
         return utelephone;
     }
 
-    public void setUtelephone(Integer utelephone) {
-        this.utelephone = utelephone;
+    public void setUtelephone(String utelephone) {
+        this.utelephone = utelephone == null ? null : utelephone.trim();
     }
 
     public String getUemail() {
