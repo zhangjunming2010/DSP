@@ -9,29 +9,29 @@
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
-         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/cas" userId="root" password="x5"> 
+         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/dsp" userId="root" password="x5"> 
         <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 生成实体类的包名和位置，这里配置将生成的实体类放在me.gacl.domain这个包下 -->
-        <javaModelGenerator targetPackage="com.tinymore.cas.model" targetProject="CAS">
+        <javaModelGenerator targetPackage="com.tinymore.dsp.model" targetProject="DSP">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成的SQL映射文件包名和位置，这里配置将生成的SQL映射文件放在me.gacl.mapping这个包下 -->
-        <sqlMapGenerator targetPackage="com.tinymore.cas.mapper" targetProject="CAS">
+        <sqlMapGenerator targetPackage="com.tinymore.dsp.mapper" targetProject="DSP">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置，这里配置将生成的dao类放在me.gacl.dao这个包下 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tinymore.cas.dao" targetProject="CAS">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.tinymore.dsp.dao" targetProject="DSP">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) 
         <table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="casetree" domainObjectName="CaseTree"/>-->
-		<table tableName="cas_evaluation_assess" domainObjectName="MEvaluationAssess" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+		<table tableName="dsp_user" domainObjectName="MUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<!-- <table tableName="t_paper" domainObjectName="MPaper" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="t_category" domainObjectName="MCategory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
 		<table tableName="t_type" domainObjectName="MType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tinymore.dsp.dao.MUserMapper">
+  <resultMap id="BaseResultMap" type="com.tinymore.dsp.model.MUser">
+    <id column="uId" jdbcType="BIGINT" property="uid" />
+    <result column="rId" jdbcType="INTEGER" property="rid" />
+    <result column="uAccount" jdbcType="VARCHAR" property="uaccount" />
+    <result column="uPassword" jdbcType="VARCHAR" property="upassword" />
+    <result column="uCName" jdbcType="VARCHAR" property="ucname" />
+    <result column="uTelephone" jdbcType="INTEGER" property="utelephone" />
+    <result column="uEmail" jdbcType="VARCHAR" property="uemail" />
+    <result column="uStatus" jdbcType="INTEGER" property="ustatus" />
+    <result column="uDesc" jdbcType="VARCHAR" property="udesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uId, rId, uAccount, uPassword, uCName, uTelephone, uEmail, uStatus, uDesc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_user
+    where uId = #{uid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_user
+    where uAccount = #{uAccount,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dsp_user
+    where uId = #{uid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tinymore.dsp.model.MUser">
+    insert into dsp_user (uId, rId, uAccount, 
+      uPassword, uCName, uTelephone, 
+      uEmail, uStatus, uDesc
+      )
+    values (#{uid,jdbcType=BIGINT}, #{rid,jdbcType=INTEGER}, #{uaccount,jdbcType=VARCHAR}, 
+      #{upassword,jdbcType=VARCHAR}, #{ucname,jdbcType=VARCHAR}, #{utelephone,jdbcType=INTEGER}, 
+      #{uemail,jdbcType=VARCHAR}, #{ustatus,jdbcType=INTEGER}, #{udesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tinymore.dsp.model.MUser">
+    insert into dsp_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uId,
+      </if>
+      <if test="rid != null">
+        rId,
+      </if>
+      <if test="uaccount != null">
+        uAccount,
+      </if>
+      <if test="upassword != null">
+        uPassword,
+      </if>
+      <if test="ucname != null">
+        uCName,
+      </if>
+      <if test="utelephone != null">
+        uTelephone,
+      </if>
+      <if test="uemail != null">
+        uEmail,
+      </if>
+      <if test="ustatus != null">
+        uStatus,
+      </if>
+      <if test="udesc != null">
+        uDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="uaccount != null">
+        #{uaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null">
+        #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ucname != null">
+        #{ucname,jdbcType=VARCHAR},
+      </if>
+      <if test="utelephone != null">
+        #{utelephone,jdbcType=INTEGER},
+      </if>
+      <if test="uemail != null">
+        #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="ustatus != null">
+        #{ustatus,jdbcType=INTEGER},
+      </if>
+      <if test="udesc != null">
+        #{udesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tinymore.dsp.model.MUser">
+    update dsp_user
+    <set>
+      <if test="rid != null">
+        rId = #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="uaccount != null">
+        uAccount = #{uaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null">
+        uPassword = #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ucname != null">
+        uCName = #{ucname,jdbcType=VARCHAR},
+      </if>
+      <if test="utelephone != null">
+        uTelephone = #{utelephone,jdbcType=INTEGER},
+      </if>
+      <if test="uemail != null">
+        uEmail = #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="ustatus != null">
+        uStatus = #{ustatus,jdbcType=INTEGER},
+      </if>
+      <if test="udesc != null">
+        uDesc = #{udesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uId = #{uid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tinymore.dsp.model.MUser">
+    update dsp_user
+    set rId = #{rid,jdbcType=INTEGER},
+      uAccount = #{uaccount,jdbcType=VARCHAR},
+      uPassword = #{upassword,jdbcType=VARCHAR},
+      uCName = #{ucname,jdbcType=VARCHAR},
+      uTelephone = #{utelephone,jdbcType=INTEGER},
+      uEmail = #{uemail,jdbcType=VARCHAR},
+      uStatus = #{ustatus,jdbcType=INTEGER},
+      uDesc = #{udesc,jdbcType=VARCHAR}
+    where uId = #{uid,jdbcType=BIGINT}
+  </update>
+</mapper>
