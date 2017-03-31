@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tinymore.dsp.dao.MRoleMapper">
+  <resultMap id="BaseResultMap" type="com.tinymore.dsp.model.MRole">
+    <id column="rId" jdbcType="INTEGER" property="rid" />
+    <result column="rTitle" jdbcType="VARCHAR" property="rtitle" />
+    <result column="rStatus" jdbcType="INTEGER" property="rstatus" />
+    <result column="rDesc" jdbcType="VARCHAR" property="rdesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rId, rTitle, rStatus, rDesc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_role
+    where rId = #{rid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_role
+    where rTitle = #{rtitle,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListBySearchKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_role where 1 = 1
+    <if test="searchkey != 'ALL'">
+        and rTitle like CONCAT(CONCAT('%', #{searchkey,jdbcType=VARCHAR}), '%')
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dsp_role
+    where rId = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tinymore.dsp.model.MRole">
+    insert into dsp_role (rId, rTitle, rStatus, 
+      rDesc)
+    values (#{rid,jdbcType=INTEGER}, #{rtitle,jdbcType=VARCHAR}, #{rstatus,jdbcType=INTEGER}, 
+      #{rdesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tinymore.dsp.model.MRole">
+    insert into dsp_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rId,
+      </if>
+      <if test="rtitle != null">
+        rTitle,
+      </if>
+      <if test="rstatus != null">
+        rStatus,
+      </if>
+      <if test="rdesc != null">
+        rDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="rtitle != null">
+        #{rtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rstatus != null">
+        #{rstatus,jdbcType=INTEGER},
+      </if>
+      <if test="rdesc != null">
+        #{rdesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tinymore.dsp.model.MRole">
+    update dsp_role
+    <set>
+      <if test="rtitle != null">
+        rTitle = #{rtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rstatus != null">
+        rStatus = #{rstatus,jdbcType=INTEGER},
+      </if>
+      <if test="rdesc != null">
+        rDesc = #{rdesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rId = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tinymore.dsp.model.MRole">
+    update dsp_role
+    set rTitle = #{rtitle,jdbcType=VARCHAR},
+      rStatus = #{rstatus,jdbcType=INTEGER},
+      rDesc = #{rdesc,jdbcType=VARCHAR}
+    where rId = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

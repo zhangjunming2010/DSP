@@ -13,7 +13,7 @@ public interface MUserMapper {
 
     MUser selectByPrimaryKey(Long uid);
     
-    MUser selectByAccount(@Param("uAccount")String uAccount);
+    MUser selectByAccount(@Param("uaccount")String uaccount);
 
     int updateByPrimaryKeySelective(MUser record);
 
