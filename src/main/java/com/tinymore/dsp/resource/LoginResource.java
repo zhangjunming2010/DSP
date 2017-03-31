@@ -78,19 +78,24 @@ public class LoginResource {
 		String code = "0";
 		String data = "账号或则密码错误！";
 		JSONObject ret = new JSONObject();
-		JSONObject params = JSON.parseObject(request);
-		String account = params.getString("account");
-		String password = Base64Util.encode(params.getString("password"));
-		MUser user = userService.getUserByAccount(account);
-		if(user != null) {
-			if(user.getUpassword().equals(password)) {
-				code = "1";
-				user.setRid(null);
-				user.setUid(null);
-				user.setUstatus(null);
-				user.setUpassword(null);
-				data = JSON.toJSONString(user);
+		try {
+			JSONObject params = JSON.parseObject(request);
+			String account = params.getString("account");
+			String password = Base64Util.encode(params.getString("password"));
+			MUser user = userService.getUserByAccount(account);
+			if(user != null) {
+				if(user.getUpassword().equals(password)) {
+					code = "1";
+					user.setRid(null);
+					user.setUid(null);
+					user.setUstatus(null);
+					user.setUpassword(null);
+					data = JSON.toJSONString(user);
+				}
 			}
+		} catch (Exception e) {
+			data = "登录接口异常！";
+			log.error(e);
 		}		
 		ret.put("code", code);
 		ret.put("data", data);

@@ -1,5 +1,6 @@
 package com.tinymore.dsp.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,19 +34,24 @@ public class RoleResource {
 		String code = "0";
 		String data = "新增失败，";
 		JSONObject ret = new JSONObject();
-		JSONObject params = JSON.parseObject(request);
-		String title = params.getString("rtitle");
-		MRole role = roleService.getRoleByTitle(title);
-		if(role == null) {
-			role = new MRole();
-			role.setRtitle(title);
-			role.setRdesc(params.getString("rdesc"));
-			role.setRstatus(1);
-			roleService.addRole(role);
-			code = "1";
-			data = "新增角色成功！";
-		}else {
-			data = data + "该角色名称已存在！";
+		try {
+			JSONObject params = JSON.parseObject(request);
+			String title = params.getString("rtitle");
+			MRole role = roleService.getRoleByTitle(title);
+			if(role == null) {
+				role = new MRole();
+				role.setRtitle(title);
+				role.setRdesc(params.getString("rdesc"));
+				role.setRstatus(1);
+				roleService.addRole(role);
+				code = "1";
+				data = "新增角色成功！";
+			}else {
+				data = data + "该角色名称已存在！";
+			}
+		} catch (Exception e) {
+			data = data + "新增角色接口异常！";
+			log.error(e);
 		}
 		ret.put("code", code);
 		ret.put("data", data);
@@ -55,7 +61,13 @@ public class RoleResource {
 	@RequestMapping(value = "/selectRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
 	@ResponseBody
 	public List<MRole> selectRole(@RequestBody String request){
-		return roleService.getRoleListBySearchKey(request);
+		List<MRole> roles = new ArrayList<MRole>();
+		try {
+			roles = roleService.getRoleListBySearchKey(request);
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return roles;
 	}
 
 }
