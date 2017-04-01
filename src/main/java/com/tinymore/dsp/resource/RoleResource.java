@@ -19,7 +19,7 @@ import com.tinymore.dsp.model.MRole;
 import com.tinymore.dsp.service.IRoleService;
 
 @Controller  
-@RequestMapping("/")
+@RequestMapping("/role")
 @CrossOrigin(origins="*")
 public class RoleResource {
 	
@@ -56,6 +56,42 @@ public class RoleResource {
 		ret.put("code", code);
 		ret.put("data", data);
 		return JSON.toJSONString(ret);
+	}
+	
+	@RequestMapping(value = "/updateRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String updateRole(@RequestBody MRole role) {
+		String code = "0";
+		String data = "修改失败，";
+		JSONObject ret = new JSONObject();
+		try {
+			String title = role.getRtitle();
+			MRole tmp = roleService.getRoleByTitle(title);
+			if(tmp == null) {
+				roleService.updateRole(role);
+				code = "1";
+				data = "修改角色成功！";
+			}else {
+				data = data + "该角色名称已存在！";
+			}
+		} catch (Exception e) {
+			data = data + "修改角色接口异常！";
+			log.error(e);
+		}
+		ret.put("code", code);
+		ret.put("data", data);
+		return JSON.toJSONString(ret);
+	}
+	
+	@RequestMapping(value = "/deleteRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public void deleteRole(@RequestBody String request) {
+		Integer rid = Integer.parseInt(request);
+		try {
+			roleService.deleteRole(rid);
+		} catch (Exception e) {
+			log.error(e);
+		}
 	}
 	
 	@RequestMapping(value = "/selectRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")

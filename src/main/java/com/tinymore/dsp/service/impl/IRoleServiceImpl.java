@@ -21,6 +21,16 @@ public class IRoleServiceImpl implements IRoleService {
 	}
 	
 	@Override
+	public void updateRole(MRole role) {
+		roleDao.updateByPrimaryKey(role);
+	}
+	
+	@Override
+	public void deleteRole(Integer id) {
+		roleDao.deleteByPrimaryKey(id);
+	}
+	
+	@Override
 	public MRole getRoleByTitle(String title) {
 		return roleDao.selectByTitle(title);
 	}
