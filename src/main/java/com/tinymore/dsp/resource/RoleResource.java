@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tinymore.dsp.model.MRole;
 import com.tinymore.dsp.service.IRoleService;
@@ -52,6 +53,7 @@ public class RoleResource {
 		} catch (Exception e) {
 			data = data + "新增角色接口异常！";
 			log.error(e);
+			e.printStackTrace();
 		}
 		ret.put("code", code);
 		ret.put("data", data);
@@ -77,21 +79,41 @@ public class RoleResource {
 		} catch (Exception e) {
 			data = data + "修改角色接口异常！";
 			log.error(e);
+			e.printStackTrace();
 		}
 		ret.put("code", code);
 		ret.put("data", data);
 		return JSON.toJSONString(ret);
 	}
 	
-	@RequestMapping(value = "/deleteRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/deleteRole",method = RequestMethod.POST,produces="application/text; charset=utf-8")
 	@ResponseBody
-	public void deleteRole(@RequestBody String request) {
-		Integer rid = Integer.parseInt(request);
-		try {
-			roleService.deleteRole(rid);
-		} catch (Exception e) {
-			log.error(e);
+	public String deleteRole(@RequestBody String request) {
+		String code = "0";
+		String resp = "删除失败，";
+		String rtitle = "角色：";
+		int err = 0;
+		JSONArray arry = JSON.parseArray(request);
+		for(Object obj : arry) {
+			JSONObject json = (JSONObject)obj;
+			Integer rid = Integer.parseInt(json.get("rid").toString());
+			try {
+				roleService.deleteRole(rid);
+			} catch (Exception e) {
+				err++;
+				log.error(e);
+				rtitle = rtitle + json.get("rtitle").toString()+"、";
+				e.printStackTrace();
+			}
 		}
+		if(err == 0) {
+			code = "1";
+			resp = "所选角色删除成功！";
+		}
+		if(code.equals("0")) {
+			resp = resp + rtitle.substring(0, rtitle.length()-1) + "存在关联用户！";
+		}
+		return resp;
 	}
 	
 	@RequestMapping(value = "/selectRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
@@ -102,6 +124,7 @@ public class RoleResource {
 			roles = roleService.getRoleListBySearchKey(request);
 		} catch (Exception e) {
 			log.error(e);
+			e.printStackTrace();
 		}
 		return roles;
 	}
