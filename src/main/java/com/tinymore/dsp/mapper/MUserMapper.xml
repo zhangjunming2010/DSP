@@ -27,6 +27,14 @@
     from dsp_user
     where uAccount = #{uaccount,jdbcType=VARCHAR}
   </select>
+  <select id="selectListBySearchKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_user where 1 = 1
+    <if test="searchkey != 'ALL'">
+        and uCName like CONCAT(CONCAT('%', #{searchkey,jdbcType=VARCHAR}), '%')
+    </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from dsp_user
     where uId = #{uid,jdbcType=BIGINT}

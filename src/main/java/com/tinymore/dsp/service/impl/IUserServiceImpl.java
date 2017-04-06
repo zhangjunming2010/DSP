@@ -1,5 +1,7 @@
 package com.tinymore.dsp.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class IUserServiceImpl implements IUserService {
 	@Override
 	public MUser getUserByAccount(String uAccount) {
 		return userDao.selectByAccount(uAccount);
+	}
+	
+	@Override
+	public List<MUser> getUserListBySearchKey(String searchkey){
+		return userDao.selectListBySearchKey(searchkey);
 	}
 
 }

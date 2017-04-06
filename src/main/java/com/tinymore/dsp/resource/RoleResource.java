@@ -53,7 +53,6 @@ public class RoleResource {
 		} catch (Exception e) {
 			data = data + "新增角色接口异常！";
 			log.error(e);
-			e.printStackTrace();
 		}
 		ret.put("code", code);
 		ret.put("data", data);
@@ -79,7 +78,6 @@ public class RoleResource {
 		} catch (Exception e) {
 			data = data + "修改角色接口异常！";
 			log.error(e);
-			e.printStackTrace();
 		}
 		ret.put("code", code);
 		ret.put("data", data);
@@ -103,7 +101,6 @@ public class RoleResource {
 				err++;
 				log.error(e);
 				rtitle = rtitle + json.get("rtitle").toString()+"、";
-				e.printStackTrace();
 			}
 		}
 		if(err == 0) {
@@ -124,7 +121,6 @@ public class RoleResource {
 			roles = roleService.getRoleListBySearchKey(request);
 		} catch (Exception e) {
 			log.error(e);
-			e.printStackTrace();
 		}
 		return roles;
 	}

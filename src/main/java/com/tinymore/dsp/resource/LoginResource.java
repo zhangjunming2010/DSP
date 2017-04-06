@@ -63,7 +63,6 @@ public class LoginResource {
 			VerifyCodeUtil.outputImage(w, h, response.getOutputStream(), verifyCode);
 		} catch (IOException e) {
 			log.error(e);
-			e.printStackTrace();
 		} 
 	}
 	
@@ -97,7 +96,6 @@ public class LoginResource {
 		} catch (Exception e) {
 			data = "登录接口异常！";
 			log.error(e);
-			e.printStackTrace();
 		}		
 		ret.put("code", code);
 		ret.put("data", data);
