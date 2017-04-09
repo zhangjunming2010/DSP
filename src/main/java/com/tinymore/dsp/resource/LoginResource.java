@@ -19,7 +19,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tinymore.dsp.model.MUser;
 import com.tinymore.dsp.service.IUserService;
-import com.tinymore.dsp.utils.Base64Util;
+import com.tinymore.dsp.utils.PasswordUtil;
 import com.tinymore.dsp.utils.VerifyCodeUtil;
 
 @Controller  
@@ -81,7 +81,7 @@ public class LoginResource {
 		try {
 			JSONObject params = JSON.parseObject(request);
 			String account = params.getString("account");
-			String password = Base64Util.encode(params.getString("password"));
+			String password = PasswordUtil.encode(params.getString("password"));
 			MUser user = userService.getUserByAccount(account);
 			if(user != null) {
 				if(user.getUpassword().equals(password)) {

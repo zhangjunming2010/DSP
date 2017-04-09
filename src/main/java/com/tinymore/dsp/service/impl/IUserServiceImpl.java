@@ -14,6 +14,11 @@ public class IUserServiceImpl implements IUserService {
 	
 	@Autowired
 	private MUserMapper userDao;
+	
+	@Override
+	public void addUser(MUser user) {
+		userDao.insert(user);
+	}
 
 	@Override
 	public MUser getUserByAccount(String uAccount) {
