@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tinymore.dsp.dao.MAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.tinymore.dsp.model.MAuthority">
+    <id column="aId" jdbcType="INTEGER" property="aid" />
+    <result column="aPid" jdbcType="INTEGER" property="apid" />
+    <result column="aTitle" jdbcType="VARCHAR" property="atitle" />
+    <result column="aValue" jdbcType="VARCHAR" property="avalue" />
+    <result column="aStatus" jdbcType="INTEGER" property="astatus" />
+    <result column="aDesc" jdbcType="VARCHAR" property="adesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aId, aPid, aTitle, aValue, aStatus, aDesc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_authority
+    where aId = #{aid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_authority
+    where aTitle = #{atitle,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListBySearchKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dsp_authority where 1 = 1
+    <if test="searchkey != 'ALL'">
+        and aTitle like CONCAT(CONCAT('%', #{searchkey,jdbcType=VARCHAR}), '%')
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dsp_authority
+    where aId = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tinymore.dsp.model.MAuthority">
+    insert into dsp_authority (aId, aPid, aTitle, 
+      aValue, aStatus, aDesc
+      )
+    values (#{aid,jdbcType=INTEGER}, #{apid,jdbcType=INTEGER}, #{atitle,jdbcType=VARCHAR}, 
+      #{avalue,jdbcType=VARCHAR}, #{astatus,jdbcType=INTEGER}, #{adesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tinymore.dsp.model.MAuthority">
+    insert into dsp_authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aId,
+      </if>
+      <if test="apid != null">
+        aPid,
+      </if>
+      <if test="atitle != null">
+        aTitle,
+      </if>
+      <if test="avalue != null">
+        aValue,
+      </if>
+      <if test="astatus != null">
+        aStatus,
+      </if>
+      <if test="adesc != null">
+        aDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="apid != null">
+        #{apid,jdbcType=INTEGER},
+      </if>
+      <if test="atitle != null">
+        #{atitle,jdbcType=VARCHAR},
+      </if>
+      <if test="avalue != null">
+        #{avalue,jdbcType=VARCHAR},
+      </if>
+      <if test="astatus != null">
+        #{astatus,jdbcType=INTEGER},
+      </if>
+      <if test="adesc != null">
+        #{adesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tinymore.dsp.model.MAuthority">
+    update dsp_authority
+    <set>
+      <if test="apid != null">
+        aPid = #{apid,jdbcType=INTEGER},
+      </if>
+      <if test="atitle != null">
+        aTitle = #{atitle,jdbcType=VARCHAR},
+      </if>
+      <if test="avalue != null">
+        aValue = #{avalue,jdbcType=VARCHAR},
+      </if>
+      <if test="astatus != null">
+        aStatus = #{astatus,jdbcType=INTEGER},
+      </if>
+      <if test="adesc != null">
+        aDesc = #{adesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aId = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tinymore.dsp.model.MAuthority">
+    update dsp_authority
+    set aPid = #{apid,jdbcType=INTEGER},
+      aTitle = #{atitle,jdbcType=VARCHAR},
+      aValue = #{avalue,jdbcType=VARCHAR},
+      aStatus = #{astatus,jdbcType=INTEGER},
+      aDesc = #{adesc,jdbcType=VARCHAR}
+    where aId = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>

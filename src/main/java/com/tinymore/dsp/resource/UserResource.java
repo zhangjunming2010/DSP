@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.tinymore.dsp.model.MUser;
 import com.tinymore.dsp.service.IUserService;
@@ -71,12 +72,63 @@ public class UserResource {
 		return JSON.toJSONString(ret);
 	}
 	
+	@RequestMapping(value = "/updateUser",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String updateUser(@RequestBody MUser user) {
+		String code = "0";
+		String data = "修改失败，";
+		JSONObject ret = new JSONObject();
+		try {
+			userService.updateUser(user);
+			code = "1";
+			data = "修改用户成功！";
+		} catch (Exception e) {
+			data = data + "修改用户接口异常！";
+			log.error(e);
+		}
+		ret.put("code", code);
+		ret.put("data", data);
+		return JSON.toJSONString(ret);
+	}
+	
+	@RequestMapping(value = "/deleteUser",method = RequestMethod.POST,produces="application/text; charset=utf-8")
+	@ResponseBody
+	public String deleteUser(@RequestBody String request) {
+		String code = "0";
+		String resp = "删除失败，";
+		String ucname = "用户：";
+		int err = 0;
+		JSONArray arry = JSON.parseArray(request);
+		for(Object obj : arry) {
+			JSONObject json = (JSONObject)obj;
+			Integer uid  = Integer.parseInt(json.get("uid").toString());
+			try {
+				userService.deleteRole(uid);
+			} catch (Exception e) {
+				err++;
+				log.error(e);
+				ucname = ucname + json.get("ucname").toString()+"、";
+			}
+		}
+		if(err == 0) {
+			code = "1";
+			resp = "所选角色删除成功！";
+		}
+		if(code.equals("0")) {
+			resp = resp + ucname.substring(0, ucname.length()-1) + "删除失败！";
+		}
+		return resp;
+	}
+	
 	@RequestMapping(value = "/selectUser",method = RequestMethod.POST,produces="application/json; charset=utf-8")
 	@ResponseBody
 	public List<MUser> selectRole(@RequestBody String request){
 		List<MUser> users = new ArrayList<MUser>();
+		JSONObject obj = JSON.parseObject(request);
+		String searchKey = obj.getString("searchKey");
+		Integer rid = obj.getInteger("rid");
 		try {
-			users = userService.getUserListBySearchKey(request);
+			users = userService.getUserListBySearchKey(searchKey,rid);
 		} catch (Exception e) {
 			log.error(e);
 		}

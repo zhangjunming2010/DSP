@@ -73,7 +73,13 @@ public class RoleResource {
 				code = "1";
 				data = "修改角色成功！";
 			}else {
-				data = data + "该角色名称已存在！";
+				if(role.getRid() == tmp.getRid()) {
+					roleService.updateRole(role);
+					code = "1";
+					data = "修改角色成功！";
+				}else {
+					data = data + "该角色名称已存在！";
+				}
 			}
 		} catch (Exception e) {
 			data = data + "修改角色接口异常！";

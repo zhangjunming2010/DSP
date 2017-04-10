@@ -7,17 +7,17 @@ import org.apache.ibatis.annotations.Param;
 import com.tinymore.dsp.model.MUser;
 
 public interface MUserMapper {
-    int deleteByPrimaryKey(Long uid);
+    int deleteByPrimaryKey(Integer uid);
 
     int insert(MUser record);
 
     int insertSelective(MUser record);
 
-    MUser selectByPrimaryKey(Long uid);
+    MUser selectByPrimaryKey(Integer uid);
     
     MUser selectByAccount(@Param("uaccount")String uaccount);
     
-    List<MUser> selectListBySearchKey(@Param("searchkey")String searchkey);
+    List<MUser> selectListBySearchKey(@Param("searchkey")String searchkey,@Param("rid")Integer rid);
 
     int updateByPrimaryKeySelective(MUser record);
 

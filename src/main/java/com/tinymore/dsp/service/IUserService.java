@@ -8,8 +8,12 @@ public interface IUserService {
 	
 	public void addUser(MUser user);
 	
+	public void updateUser(MUser user);
+	
+	public void deleteRole(Integer id);
+	
 	public MUser getUserByAccount(String uAccount);
 	
-	public List<MUser> getUserListBySearchKey(String searchkey);
+	public List<MUser> getUserListBySearchKey(String searchkey,Integer rid);
 
 }

@@ -19,6 +19,16 @@ public class IUserServiceImpl implements IUserService {
 	public void addUser(MUser user) {
 		userDao.insert(user);
 	}
+	
+	@Override
+	public void updateUser(MUser user) {
+		userDao.updateByPrimaryKey(user);
+	}
+	
+	@Override
+	public void deleteRole(Integer id) {
+		userDao.deleteByPrimaryKey(id);
+	}
 
 	@Override
 	public MUser getUserByAccount(String uAccount) {
@@ -26,8 +36,8 @@ public class IUserServiceImpl implements IUserService {
 	}
 	
 	@Override
-	public List<MUser> getUserListBySearchKey(String searchkey){
-		return userDao.selectListBySearchKey(searchkey);
+	public List<MUser> getUserListBySearchKey(String searchkey,Integer rid){
+		return userDao.selectListBySearchKey(searchkey,rid);
 	}
 
 }
