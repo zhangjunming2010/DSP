@@ -123,13 +123,25 @@ public class AuthorityResource {
 		return resp;
 	}
 	
-	
 	@RequestMapping(value = "/selectAuthority",method = RequestMethod.POST,produces="application/json; charset=utf-8")
 	@ResponseBody
 	public List<MAuthority> selectAuthority(@RequestBody String request){
 		List<MAuthority> authoritys = new ArrayList<MAuthority>();
 		try {
 			authoritys = authorityService.getAuthorityListBySearchKey(request);
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return authoritys;
+	}
+	
+	
+	@RequestMapping(value = "/selectAuthorityNotInRole",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public List<MAuthority> selectAuthorityNotInRole(@RequestBody String request){
+		List<MAuthority> authoritys = new ArrayList<MAuthority>();
+		try {
+			authoritys = authorityService.selectListNotInRole(Integer.parseInt(request));
 		} catch (Exception e) {
 			log.error(e);
 		}

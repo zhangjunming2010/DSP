@@ -18,6 +18,8 @@ public interface MAuthorityMapper {
     MAuthority selectByTitle(@Param("atitle")String atitle);
     
     List<MAuthority> selectListBySearchKey(@Param("searchkey")String searchkey);
+    
+    List<MAuthority> selectListNotInRole(@Param("rid")Integer rid);
 
     int updateByPrimaryKeySelective(MAuthority record);
 

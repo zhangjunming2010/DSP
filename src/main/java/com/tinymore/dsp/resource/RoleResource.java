@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tinymore.dsp.model.MAuthority;
+import com.tinymore.dsp.model.MRelRoleAuthorityKey;
 import com.tinymore.dsp.model.MRole;
 import com.tinymore.dsp.service.IRoleService;
 
@@ -130,5 +132,58 @@ public class RoleResource {
 		}
 		return roles;
 	}
+	
+	@RequestMapping(value = "/selectAuthority",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public List<MAuthority> selectAuthority(@RequestBody String request){
+		List<MAuthority> auths = new ArrayList<MAuthority>();
+		try {
+			auths = roleService.getAuthorityByRole(Integer.parseInt(request));
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return auths;
+	}
+	
+	@RequestMapping(value = "/addAuthorityRelation",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public void addAuthorityRelation(@RequestBody String request) {
+		JSONArray arry = JSON.parseArray(request);
+		for(Object obj : arry) {
+			JSONObject json = (JSONObject)obj;
+			Integer rid = Integer.parseInt(json.get("rid").toString());
+			Integer aid = Integer.parseInt(json.get("aid").toString());
+			try {
+				MRelRoleAuthorityKey relation = new MRelRoleAuthorityKey();
+				relation.setAid(aid);
+				relation.setRid(rid);
+				roleService.addAuthorityRelation(relation);
+			} catch (Exception e) {
+				log.error(e);
+			}
+		}
+	}
+	
+	@RequestMapping(value = "/deleteAuthorityRelation",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public void deleteAuthorityRelation(@RequestBody String request) {
+		JSONArray arry = JSON.parseArray(request);
+		for(Object obj : arry) {
+			JSONObject json = (JSONObject)obj;
+			Integer rid = Integer.parseInt(json.get("rid").toString());
+			Integer aid = Integer.parseInt(json.get("aid").toString());
+			try {
+				MRelRoleAuthorityKey relation = new MRelRoleAuthorityKey();
+				relation.setAid(aid);
+				relation.setRid(rid);
+				roleService.deleteAuthorityRelation(relation);
+			} catch (Exception e) {
+				log.error(e);
+			}
+		}
+	}
+	
+	
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.tinymore.dsp.model.MAuthority;
 import com.tinymore.dsp.model.MRole;
 
 public interface MRoleMapper {
@@ -18,6 +19,8 @@ public interface MRoleMapper {
     MRole selectByTitle(@Param("rtitle")String rtitle);
     
     List<MRole> selectListBySearchKey(@Param("searchkey")String searchkey);
+    
+    List<MAuthority> selectAuthorityListByRole(@Param("rid")Integer rid);
 
     int updateByPrimaryKeySelective(MRole record);
 

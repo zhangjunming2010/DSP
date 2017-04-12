@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tinymore.dsp.dao.MRelRoleAuthorityMapper;
 import com.tinymore.dsp.dao.MRoleMapper;
+import com.tinymore.dsp.model.MAuthority;
+import com.tinymore.dsp.model.MRelRoleAuthorityKey;
 import com.tinymore.dsp.model.MRole;
 import com.tinymore.dsp.service.IRoleService;
 
@@ -14,6 +17,9 @@ public class IRoleServiceImpl implements IRoleService {
 	
 	@Autowired
 	private MRoleMapper roleDao;
+	
+	@Autowired
+	private MRelRoleAuthorityMapper relDao;
 
 	@Override
 	public void addRole(MRole role) {
@@ -38,6 +44,21 @@ public class IRoleServiceImpl implements IRoleService {
 	@Override
 	public List<MRole> getRoleListBySearchKey(String searchkey){
 		return roleDao.selectListBySearchKey(searchkey);
+	}
+	
+	@Override
+	public List<MAuthority> getAuthorityByRole(Integer rid){
+		return roleDao.selectAuthorityListByRole(rid);
+	}
+	
+	@Override
+	public void addAuthorityRelation(MRelRoleAuthorityKey relation) {
+		relDao.insert(relation);
+	}
+	
+	@Override
+	public void deleteAuthorityRelation(MRelRoleAuthorityKey relation) {
+		relDao.deleteByPrimaryKey(relation);
 	}
 
 }

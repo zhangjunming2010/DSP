@@ -15,5 +15,7 @@ public void addAuthority(MAuthority authority);
 	public MAuthority getAuthorityByTitle(String title);
 	
 	public List<MAuthority> getAuthorityListBySearchKey(String searchkey);
+	
+	public List<MAuthority> selectListNotInRole(Integer rid);
 
 }

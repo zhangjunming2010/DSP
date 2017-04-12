@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tinymore.dsp.dao.MRelRoleAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.tinymore.dsp.model.MRelRoleAuthorityKey">
+    <id column="rId" jdbcType="INTEGER" property="rid" />
+    <id column="aId" jdbcType="INTEGER" property="aid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.tinymore.dsp.model.MRelRoleAuthorityKey">
+    delete from rel_role_authority
+    where rId = #{rid,jdbcType=INTEGER}
+      and aId = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tinymore.dsp.model.MRelRoleAuthorityKey">
+    insert into rel_role_authority (rId, aId)
+    values (#{rid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tinymore.dsp.model.MRelRoleAuthorityKey">
+    insert into rel_role_authority
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rId,
+      </if>
+      <if test="aid != null">
+        aId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

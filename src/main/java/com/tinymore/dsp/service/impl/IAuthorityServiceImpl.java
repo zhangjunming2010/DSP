@@ -39,5 +39,10 @@ public class IAuthorityServiceImpl implements IAuthorityService {
 	public List<MAuthority> getAuthorityListBySearchKey(String searchkey) {
 		return authorityDao.selectListBySearchKey(searchkey);
 	}
+	
+	@Override
+	public List<MAuthority> selectListNotInRole(Integer rid){
+		return authorityDao.selectListNotInRole(rid);
+	}
 
 }

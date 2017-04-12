@@ -7,6 +7,14 @@
     <result column="rStatus" jdbcType="INTEGER" property="rstatus" />
     <result column="rDesc" jdbcType="VARCHAR" property="rdesc" />
   </resultMap>
+  <resultMap id="AuthorityResultMap" type="com.tinymore.dsp.model.MAuthority">
+    <id column="aId" jdbcType="INTEGER" property="aid" />
+    <result column="aPid" jdbcType="INTEGER" property="apid" />
+    <result column="aTitle" jdbcType="VARCHAR" property="atitle" />
+    <result column="aValue" jdbcType="VARCHAR" property="avalue" />
+    <result column="aStatus" jdbcType="INTEGER" property="astatus" />
+    <result column="aDesc" jdbcType="VARCHAR" property="adesc" />
+  </resultMap>
   <sql id="Base_Column_List">
     rId, rTitle, rStatus, rDesc
   </sql>
@@ -29,6 +37,16 @@
     <if test="searchkey != 'ALL'">
         and rTitle like CONCAT(CONCAT('%', #{searchkey,jdbcType=VARCHAR}), '%')
     </if>
+  </select>
+  <select id="selectAuthorityListByRole" parameterType="java.lang.Integer" resultMap="AuthorityResultMap">
+    select  
+    	b.aTitle,b.aId
+    from 
+    	rel_role_authority a,dsp_authority b,dsp_role c
+    where 
+    	a.rId = c.rId 
+    	and a.aId = b.aId
+    	and a.rId = #{rid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dsp_role
