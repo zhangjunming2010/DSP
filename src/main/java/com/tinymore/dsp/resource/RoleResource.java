@@ -104,6 +104,7 @@ public class RoleResource {
 			JSONObject json = (JSONObject)obj;
 			Integer rid = Integer.parseInt(json.get("rid").toString());
 			try {
+				roleService.deleteAuthorityByRid(rid);
 				roleService.deleteRole(rid);
 			} catch (Exception e) {
 				err++;

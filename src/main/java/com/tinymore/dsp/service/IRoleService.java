@@ -23,5 +23,7 @@ public interface IRoleService {
 	public void addAuthorityRelation(MRelRoleAuthorityKey relation);
 	
 	public void deleteAuthorityRelation(MRelRoleAuthorityKey relation);
+	
+	public void deleteAuthorityByRid(Integer id);
 
 }

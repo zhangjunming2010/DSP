@@ -10,6 +10,10 @@
     where rId = #{rid,jdbcType=INTEGER}
       and aId = #{aid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByRid" parameterType="java.lang.Integer">
+    delete from rel_role_authority
+    where rId = #{rid,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.tinymore.dsp.model.MRelRoleAuthorityKey">
     insert into rel_role_authority (rId, aId)
     values (#{rid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER})

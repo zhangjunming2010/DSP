@@ -12,6 +12,14 @@
     <result column="uStatus" jdbcType="INTEGER" property="ustatus" />
     <result column="uDesc" jdbcType="VARCHAR" property="udesc" />
   </resultMap>
+  <resultMap id="AuthorityResultMap" type="com.tinymore.dsp.model.MAuthority">
+    <id column="aId" jdbcType="INTEGER" property="aid" />
+    <result column="aPid" jdbcType="INTEGER" property="apid" />
+    <result column="aTitle" jdbcType="VARCHAR" property="atitle" />
+    <result column="aValue" jdbcType="VARCHAR" property="avalue" />
+    <result column="aStatus" jdbcType="INTEGER" property="astatus" />
+    <result column="aDesc" jdbcType="VARCHAR" property="adesc" />
+  </resultMap>
   <sql id="Base_Column_List">
     uId, rId, uAccount, uPassword, uCName, uTelephone, uEmail, uStatus, uDesc
   </sql>
@@ -37,6 +45,11 @@
     <if test="rid != 0">
         and rId = #{rid,jdbcType=INTEGER}
     </if>
+  </select>
+  <select id="selectUserAuthority" parameterType="java.lang.Integer" resultMap="AuthorityResultMap">
+    select c.* from rel_role_authority b,dsp_authority c
+	where b.aId = c.aId
+	and b.rId = #{rid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from dsp_user

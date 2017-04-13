@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tinymore.dsp.dao.MUserMapper;
+import com.tinymore.dsp.model.MAuthority;
 import com.tinymore.dsp.model.MUser;
 import com.tinymore.dsp.service.IUserService;
 
@@ -38,6 +39,11 @@ public class IUserServiceImpl implements IUserService {
 	@Override
 	public List<MUser> getUserListBySearchKey(String searchkey,Integer rid){
 		return userDao.selectListBySearchKey(searchkey,rid);
+	}
+	
+	@Override
+	public List<MAuthority> getUserAuthority(Integer rid){
+		return userDao.selectUserAuthority(rid);
 	}
 
 }

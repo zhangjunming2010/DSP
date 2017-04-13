@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tinymore.dsp.model.MAuthority;
 import com.tinymore.dsp.model.MUser;
 import com.tinymore.dsp.service.IUserService;
 import com.tinymore.dsp.utils.PasswordUtil;
@@ -133,5 +134,17 @@ public class UserResource {
 			log.error(e);
 		}
 		return users;
+	}
+	
+	@RequestMapping(value = "/selectUserAuthority",method = RequestMethod.POST,produces="application/json; charset=utf-8")
+	@ResponseBody
+	public List<MAuthority> selectUserAuthority(@RequestBody String request){
+		List<MAuthority> auths = new ArrayList<MAuthority>();
+		try {
+			auths = userService.getUserAuthority(Integer.parseInt(request));
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return auths;
 	}
 }

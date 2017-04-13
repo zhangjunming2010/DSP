@@ -86,7 +86,6 @@ public class LoginResource {
 			if(user != null) {
 				if(user.getUpassword().equals(password)) {
 					code = "1";
-					user.setRid(null);
 					user.setUid(null);
 					user.setUstatus(null);
 					user.setUpassword(null);

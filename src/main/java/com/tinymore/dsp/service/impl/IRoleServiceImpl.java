@@ -60,5 +60,10 @@ public class IRoleServiceImpl implements IRoleService {
 	public void deleteAuthorityRelation(MRelRoleAuthorityKey relation) {
 		relDao.deleteByPrimaryKey(relation);
 	}
+	
+	@Override
+	public void deleteAuthorityByRid(Integer id) {
+		relDao.deleteByRid(id);
+	}
 
 }
